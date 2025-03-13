@@ -1,0 +1,17 @@
+# Pagamento com pix
+POST http://localhost:3000/pay/pix
+Content-Type: application/json
+
+{
+  "amount": 123
+}
+
+###
+
+# Pagamento com boleto
+POST http://localhost:3000/pay/boleto
+Content-Type: application/json
+
+{
+  "amount": 1234
+}
