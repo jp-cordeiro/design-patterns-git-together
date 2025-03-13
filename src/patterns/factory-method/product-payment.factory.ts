@@ -1,3 +1,4 @@
+import { PaymentGatewayAdapterInterface } from '../adapter';
 import { PaymentFactory } from './payment-factory';
 import { PaymentProcessor } from './payment-processor.interface';
 import { BoletoPayment, CreditCardPayment, PixPayment } from './payments';
@@ -10,8 +11,13 @@ export class PixPaymentFactory extends PaymentFactory {
 }
 
 export class CreditCardPaymentFactory extends PaymentFactory {
+  constructor(
+    private readonly paymentGatewayAdapter: PaymentGatewayAdapterInterface,
+  ) {
+    super();
+  }
   async createPayment(): Promise<PaymentProcessor> {
-    const creditCardPayment = new CreditCardPayment();
+    const creditCardPayment = new CreditCardPayment(this.paymentGatewayAdapter);
     return creditCardPayment;
   }
 }
