@@ -1,17 +1,15 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { AppService } from './app.service';
 import { PaymentDto } from './dtos';
 import {
   BoletoPaymentUseCase,
   CreditCardPaymentUseCase,
   PixPaymentUseCase,
 } from './use-cases';
-import { PAYMENT_TYPE } from './enums/payment-type.enum';
+import { PAYMENT_TYPE } from './enums';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
     private readonly pixPaymentUseCase: PixPaymentUseCase,
     private readonly boletoPaymentUseCase: BoletoPaymentUseCase,
     private readonly creditCardPaymentUseCase: CreditCardPaymentUseCase,

@@ -1,4 +1,4 @@
-import { PAYMENT_TYPE } from '@app/enums/payment-type.enum';
+import { PAYMENT_TYPE } from '@app/enums';
 
 export class PaymentDto {
   amount: number;

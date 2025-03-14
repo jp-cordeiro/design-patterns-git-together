@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { PAYMENT_TYPE } from '@app/enums/payment-type.enum';
+import { PAYMENT_TYPE } from '@app/enums';
 import {
   BoletoProcessFeeAppStrategy,
   CreditCardProcessFeeAppStrategy,
@@ -23,7 +23,7 @@ describe('AppController (e2e)', () => {
 
   describe('factory-method', () => {
     const amount = 123;
-    fit('should pay with pix and return 200', async () => {
+    it('should pay with pix and return 200', async () => {
       const response = await request(app.getHttpServer())
         .post('/pay/pix')
         .send({ amount });

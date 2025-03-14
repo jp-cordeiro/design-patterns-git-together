@@ -1,4 +1,4 @@
-import { PAYMENT_TYPE } from '@app/enums/payment-type.enum';
+import { PAYMENT_TYPE } from '@app/enums';
 import { PaymentProcessor } from './payment-processor.interface';
 import { PaymentGatewayAdapterInterface } from '../adapter';
 
