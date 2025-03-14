@@ -15,6 +15,18 @@
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Attach to Docker Container",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/app",
+      "skipFiles": ["<node_internals>/**"],
+      "protocol": "inspector",
+      "restart": true
     }
   ]
 }
