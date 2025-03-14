@@ -1,6 +1,10 @@
 import { AppService } from '@app/app.service';
 import { PaymentDto } from '@app/dtos';
-import { PixPaymentFactory, PixProcessFeeAppStrategy } from '@app/patterns';
+import {
+  PaymentDecoratorsAdapter,
+  PixPaymentFactory,
+  PixProcessFeeAppStrategy,
+} from '@app/patterns';
 import { UseCaseInterface } from './use-case.interface';
 import { Injectable } from '@nestjs/common';
 
@@ -15,6 +19,7 @@ export class PixPaymentUseCase implements UseCaseInterface {
       feeAppStrategy: pixProcessFeeAppStrategy,
       paymentFactory: pixPaymentFactory,
       paymentDto,
+      paymentDecorator: new PaymentDecoratorsAdapter(),
     });
     return message;
   }

@@ -3,6 +3,7 @@ import { PaymentDto } from '@app/dtos';
 import {
   CreditCardPaymentFactory,
   CreditCardProcessFeeAppStrategy,
+  PaymentDecoratorsAdapter,
   PaymentVisaGatewayAdapter,
 } from '@app/patterns';
 import { UseCaseInterface } from './use-case.interface';
@@ -23,6 +24,7 @@ export class CreditCardPaymentUseCase implements UseCaseInterface {
       feeAppStrategy: creditCardProcessFeeAppStrategy,
       paymentFactory: creditCardPaymentFactory,
       paymentDto,
+      paymentDecorator: new PaymentDecoratorsAdapter(),
     });
     return message;
   }

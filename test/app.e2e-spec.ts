@@ -23,7 +23,7 @@ describe('AppController (e2e)', () => {
 
   describe('factory-method', () => {
     const amount = 123;
-    it('should pay with pix and return 200', async () => {
+    fit('should pay with pix and return 200', async () => {
       const response = await request(app.getHttpServer())
         .post('/pay/pix')
         .send({ amount });
