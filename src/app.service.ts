@@ -20,10 +20,13 @@ export class AppService {
     const { paymentFactory, feeAppStrategy, paymentDto, paymentDecorator } =
       payload;
     const { amount } = paymentDto;
+
+    //Pode ser extraído para um serviço
     const processFeeApp = new ProcessAppFeeStrategy();
     processFeeApp.setStrategy(feeAppStrategy);
     const amoutProcessed = processFeeApp.calculateFee(amount) + amount;
 
+    //Pode ser extraído para um serviço
     let payment = await paymentFactory.createPayment();
     if (paymentDecorator) {
       payment = paymentDecorator.decorate(payment);
