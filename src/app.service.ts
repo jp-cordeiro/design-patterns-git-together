@@ -4,19 +4,21 @@ import {
   PaymentFactory,
   FeeAppStrategyInterface,
   ProcessAppFeeStrategy,
-  PaymentDecoratorsAdapterInterface,
+  PaymentDecoratorFactory,
 } from '@app/patterns';
 
 type ProcessPaymentWithFeePayload = {
   paymentFactory: PaymentFactory;
   feeAppStrategy: FeeAppStrategyInterface;
   paymentDto: PaymentDto;
-  paymentDecorator?: PaymentDecoratorsAdapterInterface;
+  paymentDecorator?: PaymentDecoratorFactory;
 };
 
 @Injectable()
 export class AppService {
-  async processPaymentWithFee(payload: ProcessPaymentWithFeePayload) {
+  async processPaymentWithFee(
+    payload: ProcessPaymentWithFeePayload,
+  ): Promise<string> {
     const { paymentFactory, feeAppStrategy, paymentDto, paymentDecorator } =
       payload;
     const { amount } = paymentDto;
@@ -29,9 +31,8 @@ export class AppService {
     //Pode ser extraído para um serviço
     let payment = await paymentFactory.createPayment();
     if (paymentDecorator) {
-      payment = paymentDecorator.decorate(payment);
+      payment = paymentDecorator.decoratePayment(payment);
     }
-
     const result = await payment.processPayment(amoutProcessed);
 
     return result;

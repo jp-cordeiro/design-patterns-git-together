@@ -1,7 +1,7 @@
 import { AppService } from '@app/app.service';
 import { PaymentDto } from '@app/dtos';
 import {
-  PaymentDecoratorsAdapter,
+  NotifyPaymentDecoratorFactory,
   PixPaymentFactory,
   PixProcessFeeAppStrategy,
 } from '@app/patterns';
@@ -19,7 +19,7 @@ export class PixPaymentUseCase implements UseCaseInterface {
       feeAppStrategy: pixProcessFeeAppStrategy,
       paymentFactory: pixPaymentFactory,
       paymentDto,
-      paymentDecorator: new PaymentDecoratorsAdapter(),
+      paymentDecorator: new NotifyPaymentDecoratorFactory(),
     });
     return message;
   }
