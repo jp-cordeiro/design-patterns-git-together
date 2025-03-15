@@ -15,3 +15,13 @@ Content-Type: application/json
 {
   "amount": 1234
 }
+
+###
+
+# Pagamento com cartão de crédito
+POST http://localhost:3000/pay/credit-card
+Content-Type: application/json
+
+{
+  "amount": 1234
+}
