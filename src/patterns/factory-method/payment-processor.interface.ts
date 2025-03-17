@@ -1,3 +1,5 @@
+import { PaymentDto } from '@app/dtos';
+
 export interface PaymentProcessor {
-  processPayment(amount: number): Promise<string>;
+  processPayment(paymentDto: PaymentDto): Promise<string>;
 }

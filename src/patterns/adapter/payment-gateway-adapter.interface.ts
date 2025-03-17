@@ -1,3 +1,10 @@
+import { PaymentDto, PaymentDtoVisa } from '@app/dtos';
+
 export interface PaymentGatewayAdapterInterface {
-  processPayment(amount: number): Promise<string>;
+  processPayment(paymentDto: PaymentDto): Promise<string>;
+}
+
+export interface PaymentGatewayVisaAdpterInterface
+  extends PaymentGatewayAdapterInterface {
+  processPayment(paymentDto: PaymentDtoVisa): Promise<string>;
 }

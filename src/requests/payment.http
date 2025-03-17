@@ -25,3 +25,14 @@ Content-Type: application/json
 {
   "amount": 1234
 }
+
+###
+
+# Pagamento com cartão de crédito novo método visa
+POST http://localhost:3000/pay/credit-card/visa
+Content-Type: application/json
+
+{
+  "amount": 123,
+  "installments":5
+}

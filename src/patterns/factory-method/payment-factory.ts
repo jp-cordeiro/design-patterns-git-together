@@ -6,7 +6,7 @@ export abstract class PaymentFactory {
 
   async processPayment(paymentDto: PaymentDto): Promise<string> {
     const payment = await this.createPayment();
-    const paymentProcessed = await payment.processPayment(paymentDto.amount);
+    const paymentProcessed = await payment.processPayment(paymentDto);
     return paymentProcessed;
   }
 }

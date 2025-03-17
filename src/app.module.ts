@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {
   BoletoPaymentUseCase,
+  CreditCardNewVisaPaymentUseCase,
   CreditCardPaymentUseCase,
   PixPaymentUseCase,
 } from './use-cases';
@@ -15,6 +16,7 @@ import {
     PixPaymentUseCase,
     CreditCardPaymentUseCase,
     BoletoPaymentUseCase,
+    CreditCardNewVisaPaymentUseCase,
   ],
 })
 export class AppModule {}

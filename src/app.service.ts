@@ -33,7 +33,10 @@ export class AppService {
     if (paymentDecorator) {
       payment = paymentDecorator.decoratePayment(payment);
     }
-    const result = await payment.processPayment(amoutProcessed);
+    const result = await payment.processPayment({
+      ...paymentDto,
+      amount: amoutProcessed,
+    });
 
     return result;
   }

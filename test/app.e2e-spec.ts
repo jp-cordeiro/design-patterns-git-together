@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { PAYMENT_TYPE } from '@app/enums';
 import {
   BoletoProcessFeeAppStrategy,
   CreditCardProcessFeeAppStrategy,
@@ -32,9 +31,7 @@ describe('AppController (e2e)', () => {
       const amountWithFee = pixProcessFeeAppStrategy.calculate(amount) + amount;
 
       expect(response.status).toBe(HttpStatus.OK);
-      expect(response.text).toEqual(
-        `Foi pago R$ ${amountWithFee} por ${PAYMENT_TYPE.PIX}`,
-      );
+      expect(response.text).toEqual(`Foi pago R$ ${amountWithFee} por PIX`);
     });
 
     it('should pay with boleto and return 200', async () => {
@@ -47,9 +44,7 @@ describe('AppController (e2e)', () => {
         boletoProcessFeeAppStrategy.calculate(amount) + amount;
 
       expect(response.status).toBe(HttpStatus.OK);
-      expect(response.text).toEqual(
-        `Foi pago R$ ${amountWithFee} por ${PAYMENT_TYPE.BOLETO}`,
-      );
+      expect(response.text).toEqual(`Foi pago R$ ${amountWithFee} por BOLETO`);
     });
 
     it('should pay with credit-card and return 200', async () => {
@@ -64,7 +59,23 @@ describe('AppController (e2e)', () => {
 
       expect(response.status).toBe(HttpStatus.OK);
       expect(response.text).toEqual(
-        `Foi pago R$ ${amountWithFee} por ${PAYMENT_TYPE.CREDIT_CARD}`,
+        `Foi pago R$ ${amountWithFee} por CARTÃO DE CRÉDITO`,
+      );
+    });
+
+    it('should pay with credit-card with visa installments and return 200', async () => {
+      const response = await request(app.getHttpServer())
+        .post('/pay/credit-card/visa')
+        .send({ amount: 123, installments: 5 });
+
+      const creditCardProcessFeeAppStrategy =
+        new CreditCardProcessFeeAppStrategy();
+      const amountWithFee =
+        creditCardProcessFeeAppStrategy.calculate(amount) + amount;
+
+      expect(response.status).toBe(HttpStatus.OK);
+      expect(response.text).toEqual(
+        `Foi pago R$ ${amountWithFee} por CARTÃO DE CRÉDITO`,
       );
     });
   });
