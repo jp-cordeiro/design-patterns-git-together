@@ -14,6 +14,18 @@ type ProcessPaymentWithFeePayload = {
   paymentDecorator?: PaymentDecoratorFactory;
 };
 
+type CalculatePaymentFeePayload = {
+  feeAppStrategy: FeeAppStrategyInterface;
+  amount: number;
+};
+
+type ProcessPaymentByFactory = {
+  paymentFactory: PaymentFactory;
+  paymentDto: PaymentDto;
+  paymentDecorator?: PaymentDecoratorFactory;
+  amountFeeProcessed: number;
+};
+
 @Injectable()
 export class AppService {
   async processPaymentWithFee(
@@ -23,21 +35,41 @@ export class AppService {
       payload;
     const { amount } = paymentDto;
 
-    //Pode ser extraído para um serviço
+    const amountFeeProcessed = this.calculatePaymentFee({
+      feeAppStrategy,
+      amount,
+    });
+    const result = await this.processPaymentByFactory({
+      paymentFactory,
+      paymentDecorator,
+      amountFeeProcessed,
+      paymentDto,
+    });
+
+    return result;
+  }
+
+  calculatePaymentFee(payload: CalculatePaymentFeePayload): number {
+    const { feeAppStrategy, amount } = payload;
     const processFeeApp = new ProcessAppFeeStrategy();
     processFeeApp.setStrategy(feeAppStrategy);
-    const amoutProcessed = processFeeApp.calculateFee(amount) + amount;
+    const amountProcessed = processFeeApp.calculateFee(amount) + amount;
+    return amountProcessed;
+  }
 
-    //Pode ser extraído para um serviço
+  async processPaymentByFactory(
+    payload: ProcessPaymentByFactory,
+  ): Promise<string> {
+    const { paymentDto, paymentFactory, paymentDecorator, amountFeeProcessed } =
+      payload;
     let payment = await paymentFactory.createPayment();
     if (paymentDecorator) {
       payment = paymentDecorator.decoratePayment(payment);
     }
     const result = await payment.processPayment({
       ...paymentDto,
-      amount: amoutProcessed,
+      amount: amountFeeProcessed,
     });
-
     return result;
   }
 }
