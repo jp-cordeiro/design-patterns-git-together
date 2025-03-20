@@ -47,8 +47,3 @@ $ docker-compose up -d
 ## Attach de debug no vscode
 
 Após rodar o docker-compose e criar o container, é só ligar o modo debug na aba debug do VSCODE com a opção: Attach to Docker Container, o projeto já estará debugando automaticamente a partir da container Docker.
-
-## Enviar requisições para o projeto
-
-Caso queira fazer as requisições pelo próprio VSCODE, você pode instalar a extensão: REST Client.
-No arquivo payments.http da pasta "requests" estão presentes os endpoints da aplicação.
